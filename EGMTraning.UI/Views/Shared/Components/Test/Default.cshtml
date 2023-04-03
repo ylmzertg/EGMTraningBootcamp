@@ -1,0 +1,11 @@
+﻿@model IEnumerable<EmployeeList>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Id - @item.Name
+        </li>
+    }
+
+</ul>

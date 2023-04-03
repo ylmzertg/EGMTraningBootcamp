@@ -18,10 +18,9 @@ namespace EGMTraning.UI.Controllers
             ViewData["Nihal"] = "Ana sayfa";
             ViewBag.Berat="Ertuğrul Yılmaz";
             TempData["EGM Eğitim"]="EGM Eğitim";
+           // return RedirectToAction("EGMView");
 
-            return RedirectToAction("EGMView");
-
-           // return View();
+            return View();
         }
 
         public IActionResult Privacy()
