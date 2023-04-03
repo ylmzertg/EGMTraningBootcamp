@@ -1,0 +1,28 @@
+{
+  "profiles": {
+    "EGMTraning.UI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Prd"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7259;http://localhost:5192"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:18883",
+      "sslPort": 44317
+    }
+  }
+}

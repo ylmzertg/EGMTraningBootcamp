@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.UI", "EGMTraning.UI\EGMTraning.UI.csproj", "{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F66DD2CD-6B60-4286-AF55-4E9B12759569}
+	EndGlobalSection
+EndGlobal
