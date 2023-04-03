@@ -18,10 +18,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @Html.Partial("_MenuBar")
+                 <partial name="_MenuBar"></partial>   
                     <hr />
                     <br />
-                @*    @await Component.InvokeAsync("Test")*@
+                    @await Component.InvokeAsync("Test")
                 </div>
             </div>
         </nav>

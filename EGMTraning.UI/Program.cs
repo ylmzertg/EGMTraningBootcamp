@@ -16,7 +16,7 @@ var app = builder.Build();
 //-----------------------------------------------//
 //TODO:Servislerin kullanılıcagı ve ara katmanlarımızın kodlarını eklıyoruz.(Middleware)
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseDeveloperExceptionPage();
