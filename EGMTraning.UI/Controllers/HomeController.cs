@@ -13,11 +13,14 @@ namespace EGMTraning.UI.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([Bind(nameof(EmployeeList.Name))] EmployeeList emp)
         {
             ViewData["Nihal"] = "Ana sayfa";
             ViewBag.Berat="Ertuğrul Yılmaz";
             TempData["EGM Eğitim"]="EGM Eğitim";
+            //int a = 5;
+            //int b = 0;
+            //int c = a/b;
            // return RedirectToAction("EGMView");
 
             return View();
@@ -28,6 +31,17 @@ namespace EGMTraning.UI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Privacy( [Bind(nameof(EmployeeList.Name))]  EmployeeList model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            var state = ModelState.ToList();
+            return View();
+        }
+
         public IActionResult EGMView()
         {
             var data = TempData["EGM Eğitim"];
@@ -35,7 +49,7 @@ namespace EGMTraning.UI.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(EmployeeList model)
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

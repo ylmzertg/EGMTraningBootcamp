@@ -1,8 +1,13 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using FluentValidation.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
+builder.Services.AddFluentValidation(conf =>
+{
+    conf.RegisterValidatorsFromAssembly(typeof(Program).Assembly);
+});
 
 
 var app = builder.Build();
@@ -14,7 +19,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseDeveloperExceptionPage();
+
     app.UseHsts();
 }
 

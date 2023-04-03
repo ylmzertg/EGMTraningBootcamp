@@ -1,6 +1,21 @@
-﻿@{
+﻿@model EmployeeList
+
+@{
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<form asp-controller="Home" asp-action="Privacy">
+    <input type="text" asp-for="Name"/>
+    <span asp-validation-for="Name"></span>
+
+    <input type="text" asp-for="Surname" />
+    <span asp-validation-for="Surname"></span>
+
+    <button id="btnClick">Send Form</button>
+
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
