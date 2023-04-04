@@ -1,9 +1,12 @@
 ﻿using EGMTraning.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 
 namespace EGMTraning.UI.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -11,6 +14,56 @@ namespace EGMTraning.UI.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        /*
+      1. ViewResult: HTML ve Markup sunar 
+      2. EmptyResult: Sunumu sonlandırır.
+      3. RedirectResult: Sunulan linki yeni bir adrese yönlendirmeye yarar
+      4. JsonResult: Java Script Object ‘leri Ajax ile birlikte kullanılabilir bir duruma getirir.
+      5. JavaScriptResult: Java Script leri sayfada kullanılabilir biçimde sunar.
+      6. ContentResult: Metin içeriği sunar.
+      7. FileContentResult: İndirilebilir dosyaları sunar (Binary içerik ile).
+      8. FilePathResult: İndirilebilir dosyaları sunar (Dosya yolu ile).
+      9. FileStreamResult: İndirilebilir dosyaları sunar (Stream dosyalar için).
+       */
+
+        [HttpGet]
+
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [ProducesResponseType(typeof(EmployeeList), (int)HttpStatusCode.OK)]
+        public IActionResult Index2()
+        {
+            if (true)
+                return Json(new object());
+            else if (true)
+                return Content("");
+
+            //  return View();
+        }
+
+        public ViewResult GetTestValues()
+        {
+            return View();
+        }
+
+
+        public PartialViewResult GetPartialTestValues()
+        {
+            PartialViewResult result = PartialView();
+            return result;
+        }
+
+        public JsonResult GetJsonTestValues()
+        {
+            JsonResult result = Json(new EmployeeList
+            {
+                Name= "Ertuğ",
+                Surname ="Yılmaz"
+            });
+
+            return result;
         }
 
         public IActionResult Index([Bind(nameof(EmployeeList.Name))] EmployeeList emp)
@@ -21,7 +74,7 @@ namespace EGMTraning.UI.Controllers
             //int a = 5;
             //int b = 0;
             //int c = a/b;
-           // return RedirectToAction("EGMView");
+            // return RedirectToAction("EGMView");
 
             return View();
         }
@@ -32,7 +85,7 @@ namespace EGMTraning.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Privacy( [Bind(nameof(EmployeeList.Name))]  EmployeeList model)
+        public IActionResult Privacy([Bind(nameof(EmployeeList.Name))] EmployeeList model)
         {
             if (ModelState.IsValid)
             {
