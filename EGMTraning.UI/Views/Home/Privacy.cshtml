@@ -5,8 +5,12 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Home" asp-action="Privacy">
-    <input type="text" asp-for="Name"/>
+<form method="post"
+      data-ajax="true"
+      data-ajax-complete="saveComplete"
+      data-ajax-success="saveSuccess"
+      asp-controller="Home" asp-action="Privacy">
+    <input type="text" asp-for="Name" />
     <span asp-validation-for="Name"></span>
 
     <input type="text" asp-for="Surname" />
@@ -16,6 +20,23 @@
 
 </form>
 
+<form id="dataGetirForm" method="post" data-ajax="true"
+      data-ajax-complete="saveComplete"
+      data-ajax-success="saveSuccess" asp-controller="Home" asp-action="DataGetir">
+
+</form>
+
 @section Scripts{
     <partial name="_ValidationScriptsPartial"></partial>
+
+    <script type="text/javascript">
+
+        function saveComplete() {
+            alert("Operation Completed");
+        }
+
+        function saveSuccess() {
+            alert("Operation Successed");
+        }
+    </script>
 }

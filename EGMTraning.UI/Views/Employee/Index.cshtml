@@ -1,10 +1,17 @@
-﻿@{
+﻿
+
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
+<form>
 
+    <input type="text"/>
+
+
+</form>
     <button type="submit" id="btnClick">Send Form</button>
 
 
@@ -13,38 +20,38 @@
 @section Scripts{
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        //$(document).ready(function () {
 
-            //$.ajax({
-            //    type:"GET",
-            //    url:"@Url.Action("GetNames")",
-            //    dataType :"json",
-            //    success : function(result){
-            //        console.log("result=> ", result);
-            //    },
-            //    error : function (req,status,error){
-            //        console.log("status=> ", status );
-            //        console.log("error=> ", error);
-            //    }
-            //})
+        //    //$.ajax({
+        //    //    type:"GET",
+        //    //    url:"@Url.Action("GetNames")",
+        //    //    dataType :"json",
+        //    //    success : function(result){
+        //    //        console.log("result=> ", result);
+        //    //    },
+        //    //    error : function (req,status,error){
+        //    //        console.log("status=> ", status );
+        //    //        console.log("error=> ", error);
+        //    //    }
+        //    //})
 
-            $("#btnClick").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("PostName")",
-                    dataType: "json",
-                    data: { name: "Nihal" },
-                    success: function (result) {
-                        //console.log("result=> ", result.value);
+        //    $("#btnClick").click(function () {
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "@Url.Action("PostName")",
+        //            dataType: "json",
+        //            data: { name: "Nihal" },
+        //            success: function (result) {
+        //                //console.log("result=> ", result.value);
                       
-                    },
-                    error: function (req, status, error) {
-                        console.log("status=> ", status);
-                        console.log("error=> ", error);
-                    }
-                })
-            });
-        });
+        //            },
+        //            error: function (req, status, error) {
+        //                console.log("status=> ", status);
+        //                console.log("error=> ", error);
+        //            }
+        //        })
+        //    });
+        //});
 
     </script>
 }

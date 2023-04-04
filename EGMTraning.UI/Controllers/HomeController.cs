@@ -7,7 +7,7 @@ using System.Net;
 namespace EGMTraning.UI.Controllers
 {
     //[Authorize]
-   // [Route("[controller]")]
+    // [Route("[controller]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -80,21 +80,28 @@ namespace EGMTraning.UI.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Privacy([Bind(nameof(EmployeeList.Name))] EmployeeList model)
+        public IActionResult Privacy(EmployeeList model)
         {
-            if (ModelState.IsValid)
-            {
-
-            }
-            var state = ModelState.ToList();
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult Privacy([Bind(nameof(EmployeeList.Name))] EmployeeList model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //    }
+        //    var state = ModelState.ToList();
+        //    return View();
+        //}
 
         public IActionResult EGMView()
         {
