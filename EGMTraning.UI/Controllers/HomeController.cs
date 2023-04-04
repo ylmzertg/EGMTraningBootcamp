@@ -7,6 +7,7 @@ using System.Net;
 namespace EGMTraning.UI.Controllers
 {
     //[Authorize]
+   // [Route("[controller]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -30,17 +31,17 @@ namespace EGMTraning.UI.Controllers
 
         [HttpGet]
 
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        [ProducesResponseType(typeof(EmployeeList), (int)HttpStatusCode.OK)]
+        //  [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //  [ProducesResponseType(typeof(EmployeeList), (int)HttpStatusCode.OK)]
+        //[Route("/home/[actionName]/{value :int}")]
         public IActionResult Index2()
         {
-            if (true)
-                return Json(new object());
-            else if (true)
-                return Content("");
-
-            //  return View();
+            //if (true)
+            //    return Json(new object());
+            //else if (true)
+            //    return Content("");
+            return View();
         }
 
         public ViewResult GetTestValues()

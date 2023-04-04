@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.UI", "EGMTraning.UI\EGMTraning.UI.csproj", "{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EGMTraning.UI", "EGMTraning.UI\EGMTraning.UI.csproj", "{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.Data", "EGMTraning.Data\EGMTraning.Data.csproj", "{A1B43E97-FF19-4B35-AA03-220F19FD035F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.Common", "EGMTraning.Common\EGMTraning.Common.csproj", "{56BADB05-A0B6-44DE-9306-F913EF3FF1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.BusinessEngine", "EGMTraning.BusinessEngine\EGMTraning.BusinessEngine.csproj", "{F40E5734-2DFD-4EC8-8110-5C187BD776EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.Caching", "EGMTraning.Caching\EGMTraning.Caching.csproj", "{9BA5B904-BEF2-4D81-99C6-F7D749E37573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EGMTraning.API", "EGMTraning.API\EGMTraning.API.csproj", "{66366643-3A6F-42F3-8ED3-025C5B0F79B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A04CF1-B197-4254-A0BE-4CE0AF15EF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B43E97-FF19-4B35-AA03-220F19FD035F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B43E97-FF19-4B35-AA03-220F19FD035F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B43E97-FF19-4B35-AA03-220F19FD035F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B43E97-FF19-4B35-AA03-220F19FD035F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56BADB05-A0B6-44DE-9306-F913EF3FF1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56BADB05-A0B6-44DE-9306-F913EF3FF1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56BADB05-A0B6-44DE-9306-F913EF3FF1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56BADB05-A0B6-44DE-9306-F913EF3FF1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40E5734-2DFD-4EC8-8110-5C187BD776EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40E5734-2DFD-4EC8-8110-5C187BD776EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40E5734-2DFD-4EC8-8110-5C187BD776EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40E5734-2DFD-4EC8-8110-5C187BD776EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA5B904-BEF2-4D81-99C6-F7D749E37573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA5B904-BEF2-4D81-99C6-F7D749E37573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA5B904-BEF2-4D81-99C6-F7D749E37573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA5B904-BEF2-4D81-99C6-F7D749E37573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66366643-3A6F-42F3-8ED3-025C5B0F79B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66366643-3A6F-42F3-8ED3-025C5B0F79B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66366643-3A6F-42F3-8ED3-025C5B0F79B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66366643-3A6F-42F3-8ED3-025C5B0F79B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
