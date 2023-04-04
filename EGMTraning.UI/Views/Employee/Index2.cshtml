@@ -1,0 +1,17 @@
+﻿@model List<EmployeeList>
+
+@{
+    ViewData["Title"] = "Index2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee Index 2</h1>
+
+<ul>
+    @foreach (var emp in Model)
+    {
+        <li>
+            @emp.Name
+        </li>
+    }
+</ul>

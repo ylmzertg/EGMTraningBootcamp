@@ -1,5 +1,6 @@
 ﻿using EGMTraning.UI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EGMTraning.UI.Controllers
 {
@@ -24,13 +25,29 @@ namespace EGMTraning.UI.Controllers
 
         public IActionResult PostName(string name)
         {
-            return RedirectToAction("Index2", new { name = name  });
+            var data = new List<EmployeeList>
+            {
+                new EmployeeList
+                {
+                    Name = "Ertug"
+                },
+                new EmployeeList
+                {
+                    Name = "Yilmaz"
+                }
+            };
+
+            var jsonString  = JsonSerializer.Serialize(data);
+
+            return RedirectToAction("Index2", new { name = jsonString });
            //return new JsonResult(Ok(name));
         }
 
         public IActionResult Index2(string name)
         {
-            return View();
+
+            var data = JsonSerializer.Deserialize<List<EmployeeList>>(name);
+            return View(data);
         }
 
         //[HttpPost]
