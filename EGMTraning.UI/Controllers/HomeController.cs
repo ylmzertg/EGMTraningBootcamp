@@ -9,7 +9,8 @@ namespace EGMTraning.UI.Controllers
 {
     //[Authorize]
     // [Route("[controller]")]
-  //  [MySampleActionFilterAttribute]
+    //  [MySampleActionFilterAttribute]
+    [ExceptionlogFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -71,18 +72,18 @@ namespace EGMTraning.UI.Controllers
 
         public IActionResult Index([Bind(nameof(EmployeeList.Name))] EmployeeList emp)
         {
-            ViewData["Nihal"] = "Ana sayfa";
-            ViewBag.Berat="Ertuğrul Yılmaz";
-            TempData["EGM Eğitim"]="EGM Eğitim";
-            //int a = 5;
-            //int b = 0;
-            //int c = a/b;
+            //ViewData["Nihal"] = "Ana sayfa";
+            //ViewBag.Berat="Ertuğrul Yılmaz";
+            //TempData["EGM Eğitim"]="EGM Eğitim";
+            int a = 5;
+            int b = 0;
+            int c = a/b;
             // return RedirectToAction("EGMView");
 
             return View();
         }
 
-       
+
         [HttpGet]
         [MySampleActionFilterAttribute("Home Controller / Privacy")]
         public IActionResult Privacy()
