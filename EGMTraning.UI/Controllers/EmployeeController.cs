@@ -1,4 +1,5 @@
-﻿using EGMTraning.UI.Models;
+﻿using EGMTraning.UI.ActionFilters;
+using EGMTraning.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -6,6 +7,7 @@ namespace EGMTraning.UI.Controllers
 {
     public class EmployeeController : Controller
     {
+        [MySampleActionFilterAttribute("Employee Controller / Index")]
         public IActionResult Index(string name)
         {           
             return View();

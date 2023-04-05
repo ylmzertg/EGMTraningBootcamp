@@ -1,4 +1,5 @@
-﻿using EGMTraning.UI.Models;
+﻿using EGMTraning.UI.ActionFilters;
+using EGMTraning.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ namespace EGMTraning.UI.Controllers
 {
     //[Authorize]
     // [Route("[controller]")]
+  //  [MySampleActionFilterAttribute]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -80,7 +82,9 @@ namespace EGMTraning.UI.Controllers
             return View();
         }
 
+       
         [HttpGet]
+        [MySampleActionFilterAttribute("Home Controller / Privacy")]
         public IActionResult Privacy()
         {
             return View();

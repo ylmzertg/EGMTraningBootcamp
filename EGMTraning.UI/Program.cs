@@ -1,8 +1,14 @@
-﻿using FluentValidation.AspNetCore;
+﻿using EGMTraning.UI.ActionFilters;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
 // Add services to the container.
+//builder.Services.AddControllersWithViews(opt =>
+//{
+//    opt.Filters.Add(new MySampleFilterAttribute());
+//}).AddRazorRuntimeCompilation();
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddFluentValidation(conf =>
 {
