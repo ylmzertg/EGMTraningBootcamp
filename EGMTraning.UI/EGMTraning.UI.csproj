@@ -18,4 +18,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EGMTraning.BusinessEngine\EGMTraning.BusinessEngine.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EGMTraning.Common\EGMTraning.Common.csproj" />
+    <ProjectReference Include="..\EGMTraning.Data\EGMTraning.Data.csproj" />
+  </ItemGroup>
+
 </Project>

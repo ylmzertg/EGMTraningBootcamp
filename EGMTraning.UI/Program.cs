@@ -1,6 +1,8 @@
-﻿using EGMTraning.UI.ActionFilters;
+﻿using EGMTraning.Data.DataContext;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using EGMTraning.UI.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
@@ -10,12 +12,23 @@ var builder = WebApplication.CreateBuilder(args);
 //    opt.Filters.Add(new MySampleFilterAttribute());
 //}).AddRazorRuntimeCompilation();
 
+builder.Services.AddDbContext<EmployeeDbContext>(x =>
+{
+    x.UseSqlServer(builder.Configuration.GetConnectionString("CustomConnection"), option =>
+    {
+        option.MigrationsAssembly(Assembly.GetAssembly(typeof(EmployeeDbContext)).GetName().Name);
+    });
+});
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddFluentValidation(conf =>
 {
     conf.RegisterValidatorsFromAssembly(typeof(Program).Assembly);
 });
 
+//builder.Services.AddScoped<IWorkOrderBusinessEngine, WorkOrderBusinessEngine>();
+//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
