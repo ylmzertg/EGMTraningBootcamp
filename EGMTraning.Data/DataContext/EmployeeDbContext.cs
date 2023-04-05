@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using EGMTraning.UI.DbModels;
+using EGMTraning.Data.DbModels;
 
-namespace EGMTraning.UI.DataContext
+namespace EGMTraning.Data.DataContext
 {
     public partial class EmployeeDbContext : DbContext
     {

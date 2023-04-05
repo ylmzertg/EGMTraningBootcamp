@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EGMTraning.UI.DbModels
+namespace EGMTraning.Data.DbModels
 {
     public partial class AspNetRoleClaim
     {

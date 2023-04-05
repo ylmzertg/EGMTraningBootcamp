@@ -2,15 +2,27 @@
     //ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Index View</h1>
-    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+<div class="text-left">
+    <p>
+        <a href ="/NoSuchPage">
+            Request an endpoint that doesn't exist. Trigger a 404
+        </a>
+    </p>
 
-    ViewData=> @ViewData["Nihal"]
-    <br />
-    ViewBag => @ViewBag.Berat
+    <p>
+        <a href="/home/index/1">
+           File not found
+        </a>
+    </p>
+
+    <p>
+        <a href="/home/index/2">
+            Return a 500 error
+        </a>
+    </p>
+    <p>
+        <a href="/home/index/3">
+            Return a 401 unAuthorize
+        </a>
+    </p>
 </div>
-
-@section Scripts{
-
-}

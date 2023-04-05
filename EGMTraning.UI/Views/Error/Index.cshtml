@@ -1,8 +1,16 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Hata Yakalandı</h3>
+<h1>Error Status Code page</h1>
+<h2 class="text-danger">Status Code : @ViewBag.ErrorStatusCode</h2>
+<h2 class="text-danger"> @ViewBag.ErrorMessage</h2>
 
+@if (ViewBag.ShowRequestId)
+{
+    <h3> Request Id</h3>
+    <p>
+        <code>@ViewBag.RequestId</code>
+    </p>
+}

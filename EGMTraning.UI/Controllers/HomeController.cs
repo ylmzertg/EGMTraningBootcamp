@@ -10,7 +10,7 @@ namespace EGMTraning.UI.Controllers
     //[Authorize]
     // [Route("[controller]")]
     //  [MySampleActionFilterAttribute]
-    [ExceptionlogFilter]
+    //[ExceptionlogFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -70,15 +70,30 @@ namespace EGMTraning.UI.Controllers
             return result;
         }
 
-        public IActionResult Index([Bind(nameof(EmployeeList.Name))] EmployeeList emp)
+        //public IActionResult Index([Bind(nameof(EmployeeList.Name))] EmployeeList emp)
+        //{
+        //    //ViewData["Nihal"] = "Ana sayfa";
+        //    //ViewBag.Berat="Ertuğrul Yılmaz";
+        //    //TempData["EGM Eğitim"]="EGM Eğitim";
+        //    //int a = 5;
+        //    //int b = 0;
+        //    //int c = a/b;
+        //    // return RedirectToAction("EGMView");
+
+        //    return View();
+        //}
+
+        public IActionResult Index(int? id=null)
         {
-            //ViewData["Nihal"] = "Ana sayfa";
-            //ViewBag.Berat="Ertuğrul Yılmaz";
-            //TempData["EGM Eğitim"]="EGM Eğitim";
-            int a = 5;
-            int b = 0;
-            int c = a/b;
-            // return RedirectToAction("EGMView");
+            if (id.HasValue)
+            {
+                if (id==1)
+                    throw new FileNotFoundException("File not found Exception thrown in index");
+                if (id==2)
+                    return StatusCode(500);
+                if (id==3)
+                    return StatusCode(401);
+            }
 
             return View();
         }
