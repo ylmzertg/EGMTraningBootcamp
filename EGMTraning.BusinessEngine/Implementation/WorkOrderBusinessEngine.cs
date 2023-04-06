@@ -26,6 +26,7 @@ namespace EGMTraning.BusinessEngine.Implementation
                 {
                     wOrder.Add(new WorkOrderDto
                     {
+                        Id = order.Id,
                         WorkOrderDescription = order.WorkOrderDescription,
                         WorkOrderNumber = order.WorkOrderNumber,
                         WorkOrderStatus = order.WorkOrderStatus,
@@ -39,6 +40,42 @@ namespace EGMTraning.BusinessEngine.Implementation
         public Task<CustomResponseDto<WorkOrderDto>> GetWorkOrderByName(string workOrderName)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<CustomResponseDto<WorkOrderDto>> GetWorkOrderById(int workOrderId)
+        {
+            var data = await _uow.workOrderRepository.GetByIdAsync(workOrderId);
+
+            if (data!=null)
+            {
+                WorkOrderDto nihalDto = new WorkOrderDto();
+
+                nihalDto.Id = data.Id;
+                nihalDto.WorkOrderDescription = data.WorkOrderDescription;
+                nihalDto.WorkOrderNumber = data.WorkOrderNumber;
+                nihalDto.WorkOrderStatus = data.WorkOrderStatus;
+                return await Task.FromResult(CustomResponseDto<WorkOrderDto>.Success(200, nihalDto));
+            }
+            return await Task.FromResult(CustomResponseDto<WorkOrderDto>.Fail(500, "Data Not Found"));
+        }
+
+        public async Task<CustomResponseDto<WorkOrderDto>> EditWorkOrderById(WorkOrderDto model)
+        {
+            if (model.Id>0)
+            {
+                var data = await _uow.workOrderRepository.GetByIdAsync(model.Id);
+                if (data!=null)
+                {
+                    data.WorkOrderNumber=model.WorkOrderNumber;
+                    data.WorkOrderStatus =model.WorkOrderStatus;
+                    data.WorkOrderDescription =model.WorkOrderDescription;
+                    _uow.workOrderRepository.Update(data);
+                    _uow.Commit();
+                    return await Task.FromResult(CustomResponseDto<WorkOrderDto>.Success(200, model));
+                }
+                return await Task.FromResult(CustomResponseDto<WorkOrderDto>.Fail(500, "Data Not Found"));
+            }
+            return await Task.FromResult(CustomResponseDto<WorkOrderDto>.Fail(500, "Id Not Found"));
         }
     }
 }
