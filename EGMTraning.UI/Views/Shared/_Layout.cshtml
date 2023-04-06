@@ -36,6 +36,12 @@
                             <li class="menu-portfolio" itemprop="url"><a href="portfolio.html" title="Portfolio" itemprop="name">Portfolio</a></li>
                             <li class="menu-blog" itemprop="url"><a href="blog.html" title="Blog" itemprop="name">Blog</a></li>
                             <li class="menu-contact" itemprop="url"><a href="contact.html" title="Contact" itemprop="name">Contact</a></li>
+                            <li class="menu-contact" itemprop="url"><a asp-controller="Home" asp-action="Security" title="Contact" itemprop="name">Security</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="menu-contact" itemprop="url"><a asp-controller="Home" asp-action="Logout"  itemprop="name">Logout</a></li>
+                            }
+
                         </ul>
                     </nav> <!-- #main-menu -->
 

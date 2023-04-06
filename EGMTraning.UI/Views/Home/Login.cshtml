@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var returnUrl = ViewData["ReturnUrl"] as string;
+}
+
+<h1>Login</h1>
+<form action="/login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
+    <input type="text" name="username" />
+    <input type="text" name="password" />
+    <input type="submit" value="login" />
+</form>

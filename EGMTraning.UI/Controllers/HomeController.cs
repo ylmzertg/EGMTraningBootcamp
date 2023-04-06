@@ -1,9 +1,12 @@
 ﻿using EGMTraning.UI.ActionFilters;
 using EGMTraning.UI.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
+using System.Security.Claims;
 
 namespace EGMTraning.UI.Controllers
 {
@@ -85,6 +88,12 @@ namespace EGMTraning.UI.Controllers
 
         public IActionResult Index(int? id=null)
         {
+            HttpContext.Session.SetString("sessionKey", "Egm Traning");
+            HttpContext.Session.SetInt32("sessionIntValue", 10);
+
+            var data1 = HttpContext.Session.GetString("sessionKey");
+            var data2 = HttpContext.Session.GetInt32("sessionIntValue");
+
             if (id.HasValue)
             {
                 if (id==1)
@@ -110,6 +119,50 @@ namespace EGMTraning.UI.Controllers
         public IActionResult Privacy(EmployeeList model)
         {
             return View();
+        }
+
+        [HttpGet("denied")]
+        public IActionResult Denied()
+        {
+            return View();
+        }
+
+
+        [Authorize(Roles="Admin")]
+        public IActionResult Security()
+        {
+            return View();
+        }
+
+        [HttpGet("login")]
+        public IActionResult Login(string returnUrl)
+        {
+            ViewData["ReturnUrl"]=returnUrl;
+            return View();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string username,string password,string returnUrl)
+        {
+            if (username=="Ertuğ" && password=="12345")
+            {
+                var claims = new List<Claim>();
+                claims.Add(new Claim("username", username));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
+                claims.Add(new Claim(ClaimTypes.Name, "Nihal Ateş"));
+                //claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                var claimIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimPrincipal = new ClaimsPrincipal(claimIdentity);
+                await HttpContext.SignInAsync(claimPrincipal);
+                return Redirect(returnUrl);
+            }
+            return BadRequest();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
         }
 
         //[HttpPost]

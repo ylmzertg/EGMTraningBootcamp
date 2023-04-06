@@ -3,6 +3,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using EGMTraning.UI.Extentions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
@@ -11,7 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 //{
 //    opt.Filters.Add(new MySampleFilterAttribute());
 //}).AddRazorRuntimeCompilation();
-
+builder.Services.AddSession(opt => 
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(5);
+});
 builder.Services.AddDbContext<EmployeeDbContext>(x =>
 {
     x.UseSqlServer(builder.Configuration.GetConnectionString("CustomConnection"), option =>
@@ -30,13 +35,44 @@ builder.Services.AddFluentValidation(conf =>
 //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddApplicationServices();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath="/login";
+        options.AccessDeniedPath="/denied";
+        options.Events= new CookieAuthenticationEvents()
+        {
+            OnSigningIn = async context =>
+            {
+                var principal = context.Principal;
+                if (principal.HasClaim(x => x.Type == ClaimTypes.NameIdentifier))
+                {
+                    if (principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value=="Ertuğ")
+                    {
+                        var claimIdentity = principal.Identity as ClaimsIdentity;
+                        claimIdentity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                    }
+                }
+                await Task.CompletedTask;
+            },
+            OnSignedIn = async context =>
+            {
+                await Task.CompletedTask;
+            },
+            OnValidatePrincipal = async context =>
+            {
+                await Task.CompletedTask;
+            }
+        };
+    });
+
 var app = builder.Build();
 
 
 //-----------------------------------------------//
 //TODO:Servislerin kullanılıcagı ve ara katmanlarımızın kodlarını eklıyoruz.(Middleware)
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     //app.UseDeveloperExceptionPage();
@@ -66,14 +102,16 @@ else
 
 //app.UseStatusCodePages();
 //app.UseStatusCodePages("text/plain","Status code pages custom , status code : {0}");
-app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
+//app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
 
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

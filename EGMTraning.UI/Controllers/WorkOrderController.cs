@@ -34,6 +34,14 @@ namespace EGMTraning.UI.Controllers
 
             #region Ozel Listeleme
             var data = await _workOrderBusinessEngine.GetWorkOrders();
+            HttpContext.Session.SetObjectInSession("workOrderList", data.Data);
+
+            var dataSession = HttpContext.Session.GetCustomObjectFromSession<List<WorkOrderDto>>("workOrderList");
+
+            //TODO:Session Silme
+            HttpContext.Session.Remove("workOrderList");
+
+
             var model = PaginatedList<WorkOrderDto>.CreateAsync(data.Data, pageNumber, 5);
             return View(model);
             #endregion

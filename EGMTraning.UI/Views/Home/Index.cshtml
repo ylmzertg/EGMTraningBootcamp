@@ -1,4 +1,15 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
+
+<p>
+ string Value   @accessor.HttpContext.Session.GetString("sessionKey")
+</p>
+
+<p>
+    int Value   @accessor.HttpContext.Session.GetInt32("sessionIntValue")
+</p>
+
+@{
     //ViewData["Title"] = "Home Page";
 }
 
@@ -28,3 +39,4 @@
 </div>*@
 
 <h2>Test Tasarım Home index Sayfası</h2>
+

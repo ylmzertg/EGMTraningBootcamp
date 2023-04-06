@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Security";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Security</h1>
+
+<ul>
+    @foreach(var item in User.Claims)
+    {
+        <li>
+            @item.Type: @item.Value
+        </li>
+    }
+</ul>
