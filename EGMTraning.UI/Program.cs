@@ -8,6 +8,7 @@ using System.Security.Claims;
 using EGMTraning.BusinessEngine.Contracts;
 using EGMTraning.UI.Helpers;
 using System.Globalization;
+using EGMTraning.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
@@ -16,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 //{
 //    opt.Filters.Add(new MySampleFilterAttribute());
 //}).AddRazorRuntimeCompilation();
-builder.Services.AddSession(opt => 
+builder.Services.AddSession(opt =>
 {
     opt.IdleTimeout = TimeSpan.FromMinutes(5);
 });
@@ -77,11 +78,11 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 
 var lang = serviceProvider.GetService<ILanguageBusinessEngine>();
 var result = serviceProvider.GetService<IStringResourceBusinessEngine>();
-LangHelper.Test(lang,result);
+LangHelper.Test(lang, result);
 
 var languageService = serviceProvider.GetRequiredService<ILanguageBusinessEngine>();
-var languages= languageService.GetLanguages();
-var culture = languages.Result.Data.Select(x=> new CultureInfo(x.Culture)).ToArray();
+var languages = languageService.GetLanguages();
+var culture = languages.Result.Data.Select(x => new CultureInfo(x.Culture)).ToArray();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -95,13 +96,18 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 builder.Services.AddMemoryCache();
 
+builder.Services.AddHttpClient<WorkOrderApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
+
 var app = builder.Build();
 
 
 //-----------------------------------------------//
 //TODO:Servislerin kullanılıcagı ve ara katmanlarımızın kodlarını eklıyoruz.(Middleware)
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     //app.UseDeveloperExceptionPage();

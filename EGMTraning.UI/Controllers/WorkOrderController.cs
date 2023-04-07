@@ -2,6 +2,7 @@
 using EGMTraning.Caching;
 using EGMTraning.Common.Dtos;
 using EGMTraning.Common.PagingListModels;
+using EGMTraning.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
@@ -13,14 +14,17 @@ namespace EGMTraning.UI.Controllers
         #region Variables
         private readonly IWorkOrderBusinessEngine _workOrderBusinessEngine;
         private readonly IMemoryCache _memoryCache;
+        private readonly WorkOrderApiService _workOrderApiService;
+
 
         #endregion
 
         #region Ctor
-        public WorkOrderController(IWorkOrderBusinessEngine workOrderBusinessEngine, IMemoryCache memoryCache)
+        public WorkOrderController(IWorkOrderBusinessEngine workOrderBusinessEngine, IMemoryCache memoryCache, WorkOrderApiService workOrderApiService)
         {
             _workOrderBusinessEngine=workOrderBusinessEngine;
             _memoryCache=memoryCache;
+            _workOrderApiService = workOrderApiService;
         }
 
         #endregion
@@ -51,12 +55,19 @@ namespace EGMTraning.UI.Controllers
 
             #region CacheListeleme
 
-            var data = new WorkOrderCaching(_workOrderBusinessEngine, _memoryCache);
-            var result =await data.GetAllWorkOrderAsync() ;
+            //var data = new WorkOrderCaching(_workOrderBusinessEngine, _memoryCache);
+            //var result =await data.GetAllWorkOrderAsync() ;
 
-            var model = PaginatedList<WorkOrderDto>.CreateAsync(result.ToList(), pageNumber, 5);
-            return View(model);
+            //var model = PaginatedList<WorkOrderDto>.CreateAsync(result.ToList(), pageNumber, 5);
+            //return View(model);
 
+            #endregion
+
+            #region GetDataWithApi
+
+            var model = await _workOrderApiService.GetAllWorkOrderAsync();
+            var result = PaginatedList<WorkOrderDto>.CreateAsync(model.ToList(), pageNumber, 5);
+            return View(result);
             #endregion
         }
 
