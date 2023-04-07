@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EGMTraning.BusinessEngine\EGMTraning.BusinessEngine.csproj" />
+  </ItemGroup>
+
 </Project>

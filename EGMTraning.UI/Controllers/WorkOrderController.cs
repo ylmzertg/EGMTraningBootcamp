@@ -1,7 +1,9 @@
 ﻿using EGMTraning.BusinessEngine.Contracts;
+using EGMTraning.Caching;
 using EGMTraning.Common.Dtos;
 using EGMTraning.Common.PagingListModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Net;
 
 namespace EGMTraning.UI.Controllers
@@ -10,14 +12,15 @@ namespace EGMTraning.UI.Controllers
     {
         #region Variables
         private readonly IWorkOrderBusinessEngine _workOrderBusinessEngine;
-
+        private readonly IMemoryCache _memoryCache;
 
         #endregion
 
         #region Ctor
-        public WorkOrderController(IWorkOrderBusinessEngine workOrderBusinessEngine)
+        public WorkOrderController(IWorkOrderBusinessEngine workOrderBusinessEngine, IMemoryCache memoryCache)
         {
             _workOrderBusinessEngine=workOrderBusinessEngine;
+            _memoryCache=memoryCache;
         }
 
         #endregion
@@ -33,17 +36,27 @@ namespace EGMTraning.UI.Controllers
             #endregion
 
             #region Ozel Listeleme
-            var data = await _workOrderBusinessEngine.GetWorkOrders();
-            HttpContext.Session.SetObjectInSession("workOrderList", data.Data);
+            //var data = await _workOrderBusinessEngine.GetWorkOrders();
+            //HttpContext.Session.SetObjectInSession("workOrderList", data.Data);
 
-            var dataSession = HttpContext.Session.GetCustomObjectFromSession<List<WorkOrderDto>>("workOrderList");
+            //var dataSession = HttpContext.Session.GetCustomObjectFromSession<List<WorkOrderDto>>("workOrderList");
 
-            //TODO:Session Silme
-            HttpContext.Session.Remove("workOrderList");
+            ////TODO:Session Silme
+            //HttpContext.Session.Remove("workOrderList");
 
 
-            var model = PaginatedList<WorkOrderDto>.CreateAsync(data.Data, pageNumber, 5);
+            //var model = PaginatedList<WorkOrderDto>.CreateAsync(data.Data, pageNumber, 5);
+            //return View(model);
+            #endregion
+
+            #region CacheListeleme
+
+            var data = new WorkOrderCaching(_workOrderBusinessEngine, _memoryCache);
+            var result =await data.GetAllWorkOrderAsync() ;
+
+            var model = PaginatedList<WorkOrderDto>.CreateAsync(result.ToList(), pageNumber, 5);
             return View(model);
+
             #endregion
         }
 

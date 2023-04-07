@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EGMTraning.BusinessEngine\EGMTraning.BusinessEngine.csproj" />
+    <ProjectReference Include="..\EGMTraning.Caching\EGMTraning.Caching.csproj" />
   </ItemGroup>
 
 </Project>

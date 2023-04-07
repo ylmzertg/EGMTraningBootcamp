@@ -93,7 +93,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 #endregion
 
-
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
@@ -132,8 +132,6 @@ else
 //app.UseStatusCodePages();
 //app.UseStatusCodePages("text/plain","Status code pages custom , status code : {0}");
 //app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
-
-
 
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
