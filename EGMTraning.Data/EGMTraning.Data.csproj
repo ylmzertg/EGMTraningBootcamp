@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataContext\" />
+    <Folder Include="DbModels\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,18 @@
-﻿<!doctype html>
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    string returnUrl = ViewContext.HttpContext.Request.Path;
+
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures.Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName });
+}
+
+<!doctype html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -31,7 +45,7 @@
 
                     <nav id="main-menu" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
                         <ul class="horizontal-navigation">
-                            <li class="menu-home active" itemprop="url"><a href="index.html" title="Home" itemprop="name">Home</a></li>
+                            <li class="menu-home active" itemprop="url"><a href="index.html" title="Home" itemprop="name">@EGMTraning.UI.Helpers.LangHelper.Localize("Home")</a></li>
                             <li class="menu-about" itemprop="url"><a href="about.html" title="About" itemprop="name">About</a></li>
                             <li class="menu-portfolio" itemprop="url"><a href="portfolio.html" title="Portfolio" itemprop="name">Portfolio</a></li>
                             <li class="menu-blog" itemprop="url"><a href="blog.html" title="Blog" itemprop="name">Blog</a></li>
@@ -39,8 +53,15 @@
                             <li class="menu-contact" itemprop="url"><a asp-controller="Home" asp-action="Security" title="Contact" itemprop="name">Security</a></li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="menu-contact" itemprop="url"><a asp-controller="Home" asp-action="Logout"  itemprop="name">Logout</a></li>
+                                <li class="menu-contact" itemprop="url"><a asp-controller="Home" asp-action="Logout" itemprop="name">Logout</a></li>
                             }
+                            <li class="nav-item">
+                            <form asp-action="ChangeLanguage" asp-controller="Home" method="post">
+                            <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl"/>
+                                    <select id="culture" name="culture" class="form-control" asp-items="cultureItems" asp-for="@requestCulture.RequestCulture.UICulture.Name" onchange="this.form.submit();">
+                            </select>
+                            </form>
+                            </li>
 
                         </ul>
                     </nav> <!-- #main-menu -->

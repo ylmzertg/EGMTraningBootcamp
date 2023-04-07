@@ -5,6 +5,9 @@ using System.Reflection;
 using EGMTraning.UI.Extentions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using EGMTraning.BusinessEngine.Contracts;
+using EGMTraning.UI.Helpers;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 //TODO:builder ile bareber servıslerımızı eklıyruz.
@@ -66,6 +69,32 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         };
     });
 
+builder.Services.AddLocalization();
+
+#region LanguageConfiguration
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+var lang = serviceProvider.GetService<ILanguageBusinessEngine>();
+var result = serviceProvider.GetService<IStringResourceBusinessEngine>();
+LangHelper.Test(lang,result);
+
+var languageService = serviceProvider.GetRequiredService<ILanguageBusinessEngine>();
+var languages= languageService.GetLanguages();
+var culture = languages.Result.Data.Select(x=> new CultureInfo(x.Culture)).ToArray();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var englishCulture = culture.FirstOrDefault(x => x.Name =="en-US");
+    options.DefaultRequestCulture= new Microsoft.AspNetCore.Localization.RequestCulture(englishCulture?.Name ?? "en-US");
+    options.SupportedCultures= culture;
+    options.SupportedUICultures= culture;
+});
+
+#endregion
+
+
+
 var app = builder.Build();
 
 
@@ -105,6 +134,8 @@ else
 //app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
 
 
+
+app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

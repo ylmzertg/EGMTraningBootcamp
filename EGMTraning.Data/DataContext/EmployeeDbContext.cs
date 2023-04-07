@@ -26,6 +26,8 @@ namespace EGMTraning.Data.DataContext
         public virtual DbSet<EmployeeLeaveAllocation> EmployeeLeaveAllocations { get; set; } = null!;
         public virtual DbSet<EmployeeLeaveRequest> EmployeeLeaveRequests { get; set; } = null!;
         public virtual DbSet<EmployeeLeaveType> EmployeeLeaveTypes { get; set; } = null!;
+        public virtual DbSet<Language> Languages { get; set; } = null!;
+        public virtual DbSet<StringResource> StringResources { get; set; } = null!;
         public virtual DbSet<WorkOrder> WorkOrders { get; set; } = null!;
         public virtual DbSet<WorkOrderStatus> WorkOrderStatuses { get; set; } = null!;
 
@@ -172,6 +174,38 @@ namespace EGMTraning.Data.DataContext
                     .HasDefaultValueSql("(CONVERT([bit],(0)))");
             });
 
+            modelBuilder.Entity<Language>(entity =>
+            {
+                entity.ToTable("Language");
+
+                entity.Property(e => e.Culture)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LanguageName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<StringResource>(entity =>
+            {
+                entity.ToTable("StringResource");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Value)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Language)
+                    .WithMany(p => p.StringResources)
+                    .HasForeignKey(d => d.LanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StringResource_Language");
+            });
+
             modelBuilder.Entity<WorkOrder>(entity =>
             {
                 entity.HasIndex(e => e.AssignEmployeeId, "IX_WorkOrders_AssignEmployeeId");
@@ -194,55 +228,5 @@ namespace EGMTraning.Data.DataContext
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public override int SaveChanges()
-        {
-            foreach (var item in ChangeTracker.Entries())
-            {
-                if (item.Entity is BaseEntity entityReference)
-                {
-                    switch (item.Entity)
-                    {
-                        case EntityState.Added:
-                            {
-                                entityReference.CreatedDate = DateTime.Now;
-                                break;
-                            }
-                        case EntityState.Modified:
-                            {
-                                entityReference.UpdatedDate = DateTime.Now;
-                                break;
-                            }
-                    }
-                }
-            }
-            return base.SaveChanges();
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            foreach (var item in ChangeTracker.Entries())
-            {
-                if (item.Entity is BaseEntity entityReference)
-                {
-                    switch (item.State)
-                    {
-                        case EntityState.Added:
-                            {
-                                entityReference.CreatedDate=DateTime.Now;
-                                break;
-                            }
-                        case EntityState.Modified:
-                            {
-                                Entry(entityReference).Property(x => x.CreatedDate).IsModified = false;
-
-                                entityReference.UpdatedDate = DateTime.Now;
-                                break;
-                            }
-                    }
-                }
-            }
-            return base.SaveChangesAsync(cancellationToken);
-        }
     }
 }

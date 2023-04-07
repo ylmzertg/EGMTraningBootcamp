@@ -1,8 +1,11 @@
-﻿using EGMTraning.UI.ActionFilters;
+﻿using EGMTraning.BusinessEngine.Contracts;
+using EGMTraning.UI.ActionFilters;
+using EGMTraning.UI.Helpers;
 using EGMTraning.UI.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
@@ -14,11 +17,11 @@ namespace EGMTraning.UI.Controllers
     // [Route("[controller]")]
     //  [MySampleActionFilterAttribute]
     //[ExceptionlogFilter]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ILanguageBusinessEngine languageService, IStringResourceBusinessEngine stringResourceBusinessEngine) : base(languageService, stringResourceBusinessEngine)
         {
             _logger = logger;
         }
@@ -86,23 +89,28 @@ namespace EGMTraning.UI.Controllers
         //    return View();
         //}
 
-        public IActionResult Index(int? id=null)
+        public IActionResult Index(int? id = null)
         {
-            HttpContext.Session.SetString("sessionKey", "Egm Traning");
-            HttpContext.Session.SetInt32("sessionIntValue", 10);
+            #region Traning_1
+            //HttpContext.Session.SetString("sessionKey", "Egm Traning");
+            //HttpContext.Session.SetInt32("sessionIntValue", 10);
 
-            var data1 = HttpContext.Session.GetString("sessionKey");
-            var data2 = HttpContext.Session.GetInt32("sessionIntValue");
+            //var data1 = HttpContext.Session.GetString("sessionKey");
+            //var data2 = HttpContext.Session.GetInt32("sessionIntValue");
 
-            if (id.HasValue)
-            {
-                if (id==1)
-                    throw new FileNotFoundException("File not found Exception thrown in index");
-                if (id==2)
-                    return StatusCode(500);
-                if (id==3)
-                    return StatusCode(401);
-            }
+            //if (id.HasValue)
+            //{
+            //    if (id==1)
+            //        throw new FileNotFoundException("File not found Exception thrown in index");
+            //    if (id==2)
+            //        return StatusCode(500);
+            //    if (id==3)
+            //        return StatusCode(401);
+            //} 
+            #endregion
+
+            //ViewData["titleChangedLanguage"] =LangHelper.Localize("Hello");
+              ViewData["titleChangedLanguage"] =Localize("Hello");
 
             return View();
         }
@@ -128,7 +136,7 @@ namespace EGMTraning.UI.Controllers
         }
 
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Security()
         {
             return View();
@@ -142,7 +150,7 @@ namespace EGMTraning.UI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string username,string password,string returnUrl)
+        public async Task<IActionResult> Login(string username, string password, string returnUrl)
         {
             if (username=="Ertuğ" && password=="12345")
             {
@@ -151,7 +159,7 @@ namespace EGMTraning.UI.Controllers
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
                 claims.Add(new Claim(ClaimTypes.Name, "Nihal Ateş"));
                 //claims.Add(new Claim(ClaimTypes.Role, "Admin"));
-                var claimIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimPrincipal = new ClaimsPrincipal(claimIdentity);
                 await HttpContext.SignInAsync(claimPrincipal);
                 return Redirect(returnUrl);
@@ -186,6 +194,19 @@ namespace EGMTraning.UI.Controllers
         public IActionResult Error(EmployeeList model)
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult ChangeLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(1)
+                });
+            return LocalRedirect(returnUrl);
         }
     }
 }

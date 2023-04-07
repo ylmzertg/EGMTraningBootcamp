@@ -9,6 +9,16 @@
     int Value   @accessor.HttpContext.Session.GetInt32("sessionIntValue")
 </p>
 
+<div>
+    <h3>Controller'dan gelen data @ViewData["titleChangedLanguage"]</h3>
+</div>
+
+<br />
+
+<div>
+    <h3>View'dan gelen data @LangHelper.Localize("Hello")</h3>
+</div>
+
 @{
     //ViewData["Title"] = "Home Page";
 }

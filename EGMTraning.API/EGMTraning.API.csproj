@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EGMTraning.BusinessEngine\EGMTraning.BusinessEngine.csproj" />
+    <ProjectReference Include="..\EGMTraning.Common\EGMTraning.Common.csproj" />
+  </ItemGroup>
+
 </Project>

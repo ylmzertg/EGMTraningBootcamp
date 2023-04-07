@@ -19,6 +19,8 @@ namespace EGMTraning.Data.Implementation
             employeeLeaveRequestRepository = new EmployeeLeaveRequestRepository(_context);
             employeeLeaveTypeRepository = new EmployeeLeaveTypeRepository(_context);
             workOrderRepository= new WorkOrderRepository(_context);
+            language = new LanguageRepository(context);
+            stringResourceRepository = new StringResourceRepository(context);
         }
 
         public IEmployeeLeaveAllocationRepository employeeLeaveAllocationRepository { get;  private set; }
@@ -28,6 +30,8 @@ namespace EGMTraning.Data.Implementation
         public IEmployeeLeaveTypeRepository employeeLeaveTypeRepository { get; private set; }
 
         public IWorkOrderRepository workOrderRepository { get; private set; }
+        public ILanguageRepository language { get; }
+        public IStringResourceRepository stringResourceRepository { get; }
 
         public void Commit()
         {

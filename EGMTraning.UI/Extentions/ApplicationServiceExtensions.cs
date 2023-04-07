@@ -11,6 +11,8 @@ namespace EGMTraning.UI.Extentions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IWorkOrderBusinessEngine, WorkOrderBusinessEngine>();
+            services.AddScoped<ILanguageBusinessEngine, LanguageBusinessEngine>();
+            services.AddScoped<IStringResourceBusinessEngine, StringResourceBusinessEngine>();
             return services;
         }
     }
